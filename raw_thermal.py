@@ -60,7 +60,9 @@ with open("body_temp_cam.csv", "r") as f:
                         im.putpixel((x, y), to_rgb(y1, u, v))
                         im.putpixel((x + 1, y), to_rgb(y2, u, v))
                     elif y == 320:
-                        print(len(images) + 1, data[z:z+5], struct.unpack("h", data[z:z+2]))
+                        #print(len(images) + 1, data[z:z+5], struct.unpack("h", data[z:z+2]))
+                        max_temp_f = int((data[z+1] << 8) + data[z]) / 10.0
+                        print("%d: max temp: %0.1f F" % (len(images)+1, max_temp_f))
                         break
                 images.append(im)
                 im.save('thermal{:03d}.bmp'.format(len(images)))
